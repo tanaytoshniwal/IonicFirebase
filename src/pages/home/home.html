@@ -1,14 +1,19 @@
 <ion-header>
   <ion-navbar>
     <ion-title>
-      Ionic Blank
+      Ionic Firebase
     </ion-title>
   </ion-navbar>
 </ion-header>
 
 <ion-content padding>
-  The world is your oyster.
-  <p>
-    If you get lost, the <a href="http://ionicframework.com/docs/v2">docs</a> will be your guide.
-  </p>
+  <ion-item>
+    <ion-label fixed>Input:</ion-label>
+    <ion-input type="text" value="" [(ngModel)]="data"></ion-input>
+  </ion-item>
+  <button ion-button color="dark" round block (click)="add()">Add</button>
+  <ion-card *ngFor="let item of list; let i = index;">
+    <ion-card-header>{{i+1}}</ion-card-header>
+    <ion-card-content>{{item}}</ion-card-content>
+  </ion-card>
 </ion-content>
