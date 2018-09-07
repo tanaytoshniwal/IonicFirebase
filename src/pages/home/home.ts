@@ -7,8 +7,18 @@ import { NavController } from 'ionic-angular';
 })
 export class HomePage {
 
+  data = '';
+  list = [];
+
   constructor(public navCtrl: NavController) {
 
+  }
+
+  add(){
+    if(this.data != ''){
+      this.list.push(this.data);
+      this.data = '';
+    }
   }
 
 }
