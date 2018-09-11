@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, App } from 'ionic-angular';
+import { AuthProvider } from '../../providers/auth/auth';
+import { HomePage } from '../home/home';
 
 /**
  * Generated class for the LoginPage page.
@@ -15,11 +17,17 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 })
 export class LoginPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, private auth: AuthProvider, private app: App) {
   }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad LoginPage');
+  google(){
+    this.auth.google_sign_in().then(()=>{
+      if(this.auth.check_user()){
+        this.app.getRootNav().setRoot(HomePage);
+      }
+    }).catch(err=>{
+      console.log(err);
+    });
   }
 
 }

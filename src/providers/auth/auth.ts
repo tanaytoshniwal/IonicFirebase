@@ -1,4 +1,3 @@
-import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { LoadingController } from 'ionic-angular';
@@ -57,7 +56,7 @@ export class AuthProvider {
         this.loading.dismiss();
         this.firestore.firestore.enableNetwork();
       }).catch(err=>{
-        console.log('error');
+        console.log(err);
         this.loading.dismiss();
       });
     }
