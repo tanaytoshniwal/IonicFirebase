@@ -22,6 +22,10 @@ export class HomePage {
 
   constructor(public navCtrl: NavController, private afs: AngularFirestore) {
     this.list_collection = afs.collection<any>('todo_list');
+
+    this.list_collection.valueChanges().subscribe(data => {
+      this.list = data.map(res => res as List);
+    });
   }
 
   add(){
