@@ -7,6 +7,7 @@ import { LoginPage } from '../login/login';
 import { AuthProvider } from '../../providers/auth/auth';
 
 export interface List{
+  _id: string,
   _ref: string,
   data: string
 };
@@ -23,7 +24,7 @@ export class HomePage {
   list_collection: AngularFirestoreCollection;
 
   constructor(public navCtrl: NavController, private afs: AngularFirestore, public alertCtrl: AlertController, private auth: AuthProvider, private app: App) {
-    this.list_collection = afs.collection<any>('todo_list');
+    this.list_collection = afs.collection<any>('todo_list', ref=>ref.where('_id', '==', auth.check_user().uid));
 
     this.list_collection.valueChanges().subscribe(data => {
       this.list = data.map(res => res as List);
@@ -32,7 +33,7 @@ export class HomePage {
 
   add(){
     if(this.data != ''){
-      let new_obj = {_ref: '', data: this.data};
+      let new_obj = {_id: this.auth.check_user().uid, _ref: '', data: this.data};
       this.list_collection.add(new_obj).then(res => {
         this.list_collection.doc(res.id).update({_ref: res.id});
         this.list.push(new_obj);
