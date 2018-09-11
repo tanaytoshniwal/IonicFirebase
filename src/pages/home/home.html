@@ -13,7 +13,6 @@
   </ion-item>
   <button ion-button color="dark" round block (click)="add()">Add</button>
   <ion-card *ngFor="let item of list; let i = index;">
-    <ion-card-header>{{i+1}}</ion-card-header>
     <ion-card-content>{{item}}</ion-card-content>
   </ion-card>
 </ion-content>
