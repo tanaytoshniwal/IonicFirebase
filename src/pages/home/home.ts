@@ -1,8 +1,10 @@
 import { Component } from '@angular/core';
-import { NavController, AlertController } from 'ionic-angular';
+import { NavController, AlertController, App } from 'ionic-angular';
 
 import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/firestore';
 import { Observable } from 'rxjs/Observable';
+import { LoginPage } from '../login/login';
+import { AuthProvider } from '../../providers/auth/auth';
 
 export interface List{
   _ref: string,
@@ -20,7 +22,7 @@ export class HomePage {
   list: List[] = [];
   list_collection: AngularFirestoreCollection;
 
-  constructor(public navCtrl: NavController, private afs: AngularFirestore, public alertCtrl: AlertController) {
+  constructor(public navCtrl: NavController, private afs: AngularFirestore, public alertCtrl: AlertController, private auth: AuthProvider, private app: App) {
     this.list_collection = afs.collection<any>('todo_list');
 
     this.list_collection.valueChanges().subscribe(data => {
@@ -38,9 +40,13 @@ export class HomePage {
     }
   }
 
-  delete(item, i){
+  delete(item, j){
     this.list_collection.doc(item._ref).delete().then(()=>{
-      this.list.splice(i, 1);
+      for(let i = 0; i< this.list.length; i++){
+        if(this.list[i]._ref == item._ref){
+          this.list.splice(i, 1);
+        }
+      }
     });
   }
 
@@ -69,6 +75,12 @@ export class HomePage {
       ]
     });
     prompt.present();
+  }
+
+  logout(){
+    this.auth.signOut().then(item => {
+      this.app.getRootNav().setRoot(LoginPage);
+    });
   }
 
 }
