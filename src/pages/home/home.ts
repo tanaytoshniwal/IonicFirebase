@@ -5,6 +5,7 @@ import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/fire
 import { Observable } from 'rxjs/Observable';
 
 export interface List{
+  _ref: string,
   data: string
 };
 
@@ -24,10 +25,9 @@ export class HomePage {
   }
 
   add(){
-    console.log('va');
-    let new_obj = {data: this.data};
+    let new_obj = {_ref: '', data: this.data};
     this.list_collection.add(new_obj).then(res => {
-      console.log(res);
+      this.list_collection.doc(res.id).update({_ref: res.id});
       this.list.push(new_obj);
     });
   }
