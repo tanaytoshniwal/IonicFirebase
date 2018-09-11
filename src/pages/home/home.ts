@@ -38,9 +38,13 @@ export class HomePage {
     }
   }
 
-  delete(item, i){
+  delete(item, j){
     this.list_collection.doc(item._ref).delete().then(()=>{
-      this.list.splice(i, 1);
+      for(let i = 0; i< this.list.length; i++){
+        if(this.list[i]._ref == item._ref){
+          this.list.splice(i, 1);
+        }
+      }
     });
   }
 
