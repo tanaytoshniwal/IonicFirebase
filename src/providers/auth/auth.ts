@@ -47,7 +47,6 @@ export class AuthProvider {
   }
 
   signOut(): Promise<any> {
-    // I don't know if this works
     this.firestore.firestore.disableNetwork();
     return this.afAuth.auth.signOut();
   }

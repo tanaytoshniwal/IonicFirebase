@@ -13,10 +13,13 @@ import { AngularFireAuthModule } from '@angular/fire/auth';
 import { environment } from '../environments/environment';
 import { AuthProvider } from '../providers/auth/auth';
 
+import { LoginPage } from "../pages/login/login";
+
 @NgModule({
   declarations: [
     MyApp,
-    HomePage
+    HomePage,
+    LoginPage
   ],
   imports: [
     BrowserModule,
@@ -28,7 +31,8 @@ import { AuthProvider } from '../providers/auth/auth';
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
-    HomePage
+    HomePage,
+    LoginPage
   ],
   providers: [
     StatusBar,
